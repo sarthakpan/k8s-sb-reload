@@ -31,3 +31,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080 # The port that the container is running on in the cluster
+          volumeMounts:
+          - name: config
+            mountPath: /opt
+       volumes:
+        - name: config
+          configMap:
+            name: reload-example
