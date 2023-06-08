@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: config-example
-          image: config-example
-          imagePullPolicy: Never
+          image: ttl.sh/config-example
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
