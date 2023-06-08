@@ -1,33 +1,47 @@
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
-  name: spring-test-service
-spec:
-  selector:
-    app: spring-test-app
-  ports:
-    - protocol: "TCP"
-      port: 8080 # The port that the service is running on in the cluster
-      targetPort: 8080 # The port exposed by the service
-  type: LoadBalancer # type of the service. LoadBalancer indicates that our service will be external.
----
-apiVersion: apps/v1
-kind: Deployment # Kubernetes resource kind we are creating
+kind: Service
+apiVersion: v1
 metadata:
-  name: spring-test-app
+  name: minikube-sample
 spec:
   selector:
-    matchLabels:
-      app: spring-test-app
-  replicas: 2 # Number of replicas that will be created for this deployment
+    app: minikube-sample
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 30083
+  type: NodePort
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minikube-sample
+  namespace: default
+spec:
+  selector:
+      matchLabels:
+        app: minikube-sample
+
+  replicas: 1
   template:
     metadata:
       labels:
-        app: spring-test-app
+        app: minikube-sample
     spec:
       containers:
-        - name: spring-test-app 
-          image: spring-boot-test # Image that will be used to containers in the cluster
-          imagePullPolicy: IfNotPresent
+        - name: minikube-sample
+          image: minikube-sample:latest
+          imagePullPolicy: Never
           ports:
-            - containerPort: 8080 # The port that the container is running on in the cluster
+            - containerPort: 8080
+          env:
+            - name: env.namespace
+              value: default
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          configMap:
+            name: minikube-sample
