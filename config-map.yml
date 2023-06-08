@@ -4,7 +4,7 @@ metadata:
   name: minikube-sample
   namespace: default
 data:
-  bean.message=Hello World!
+  bean.message: Hello World!
   app.data.name: name
   application.yml: |-
     app:
