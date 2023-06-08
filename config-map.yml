@@ -1,8 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: reload-example
+  name: minikube-sample
+  namespace: default
 data:
-  application.properties: |-
-    bean.message=Hello World!
-    another.property=value
+  app.data.name: name
+  application.yml: |-
+    app:
+      data:
+        test: test
