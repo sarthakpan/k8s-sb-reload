@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: config-example
 data:
-  application.properties: |-
+  application.yml: |-
     bean.message=Hello Youtube from app.properties
     message=Hi from app.properties
