@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: minikube-sample
-          image: minikube-sample:latest
+          image: ttl.sh/minikube-sample:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
